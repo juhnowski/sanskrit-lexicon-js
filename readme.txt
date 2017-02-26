@@ -1,6 +1,7 @@
 Foreword
 ========
 As start point I got working app by link: http://www.sanskrit-lexicon.uni-koeln.de/scans/MWScan/2014/web/webtc2/
+Source files was placed: https://github.com/juhnowski/sanskrit-lexicon-js
 
 Motivation
 ==========
