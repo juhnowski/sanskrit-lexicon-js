@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <meta charset="utf-8">
+    <title>Sanskrit-Lexicon Demo</title>
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</header>
+<body>
+    <div id='content'></div>
+
+    <script type="text/babel">
+
+    var WORDS = [
+      {
+        id: 1,
+        sname: 'अङ्क',
+        ename: 'omitted'
+      },
+      {
+        id: 2,
+        sname: 'अतिपटीक्षेप',
+        ename: 'omitting'
+      },
+      {
+        id: 3,
+        sname: 'अतिशंस्',
+        ename: 'omit'
+      },
+      {
+        id: 4,
+        sname: 'अतिष्कन्द्',
+        ename: 'omitting'
+      },
+      {
+        id: 5,
+        sname: 'अनन्तशक्ति',
+        ename: 'omnipotent'
+      },
+      {
+        id: 6,
+        sname: 'अनभिहितवाच्य',
+        ename: 'omission'
+      },
+      {
+        id: 7,
+        sname: 'अनाभ्युदयिक',
+        ename: 'omened'
+      },
+      {
+        id: 8,
+        sname: 'अनिमित्त',
+        ename: 'omen'
+      },
+      {
+        id: 9,
+        sname: 'अनिष्ट',
+        ename: 'ominous'
+      },
+      {
+        id: 10,
+        sname: 'अनिष्टसूचक',
+        ename: 'ominous'
+      },
+      {
+        id: 11,
+        sname: 'अनिष्टहेतु',
+        ename: 'omen'
+      },
+      {
+        id: 12,
+        sname: 'अनुपादान',
+        ename: 'omission'
+      },
+      {
+        id: 13,
+        sname: 'अन्तःपुरवृद्धा',
+        ename: 'omen'
+      },
+      {
+        id: 14,
+        sname: 'अन्तःपुराधिपत्य',
+        ename: 'omen'
+      },
+      {
+        id: 15,
+        sname: 'अन्तःपुरावचर',
+        ename: 'omen'
+      },
+      {
+        id: 16,
+        sname: 'अन्तःपुरीय',
+        ename: 'omen'
+      },
+      {
+        id: 17,
+        sname: 'अन्तःपुरेवास',
+        ename: 'omen'
+      },
+      {
+        id: 18,
+        sname: 'अन्तरि',
+        ename: 'omit'
+      },
+      {
+        id: 19,
+        sname: 'अन्तर्गतोपमा',
+        ename: 'omitted'
+      },
+      {
+        id: 20,
+        sname: 'अपकृष्',
+        ename:  'omit'
+      }
+    ];
+    var HelloWorld = React.createClass({
+      render: function() {
+          return (
+                  <div>
+                    <h1>Sanskrit-Lexicon</h1>
+                    <p>React demo - Step 2</p>
+                    </div>
+                  );
+      }
+    });
+
+    var Word = React.createClass({
+      render: function() {
+        return <li> {this.props.id} {this.props.sname} ({this.props.ename})</li>
+      }
+    });
+
+    var WordsList = React.createClass({
+      render: function() {
+        return (
+          <div>
+            <ul>
+              {
+                WORDS.map(function(el) {
+                  return <Word key={el.id} id={el.id} sname={el.sname} ename={el.ename} />;
+                })
+              }
+            </ul>
+          </div>
+        )
+      }
+    });
+
+    var App = React.createClass({
+        render: function() {
+          return (
+            <div>
+                    <HelloWorld />
+                    <WordsList />
+            </div>
+          )
+        }
+    });
+
+    ReactDOM.render(
+      <App />,
+      document.getElementById('content')
+    );
+
+    </script>
+</body>
+</html>

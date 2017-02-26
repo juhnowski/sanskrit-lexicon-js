@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <meta charset="utf-8">
+    <title>Sanskrit-Lexicon Demo</title>
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</header>
+<body>
+    <div id='content'></div>
+
+    <script type="text/babel">
+
+    var HelloWorld = React.createClass({
+      render: function() {
+          return (
+                  <div>
+                    <h1>Sanskrit-Lexicon</h1>
+                    <p>React demo</p>
+                    </div>
+                  );
+      }
+    });
+
+    ReactDOM.render(
+      <HelloWorld />,
+      document.getElementById('content')
+    );
+
+    </script>
+</body>
+</html>
