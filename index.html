@@ -6,25 +6,230 @@
     <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
     <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </header>
 <body>
     <div id='content'></div>
 
     <script type="text/babel">
-
+        
+    var WORDS = [
+      {
+        id: 1,
+        sname: 'अङ्क',
+        ename: 'omitted'
+      },
+      {
+        id: 2,
+        sname: 'अतिपटीक्षेप',
+        ename: 'omitting'
+      },
+      {
+        id: 3,
+        sname: 'अतिशंस्',
+        ename: 'omit'
+      },
+      {
+        id: 4,
+        sname: 'अतिष्कन्द्',
+        ename: 'omitting'
+      },
+      {
+        id: 5,
+        sname: 'अनन्तशक्ति',
+        ename: 'omnipotent'
+      },
+      {
+        id: 6,
+        sname: 'अनभिहितवाच्य',
+        ename: 'omission'
+      },
+      {
+        id: 7,
+        sname: 'अनाभ्युदयिक',
+        ename: 'omened'
+      },
+      {
+        id: 8,
+        sname: 'अनिमित्त',
+        ename: 'omen'
+      },
+      {
+        id: 9,
+        sname: 'अनिष्ट',
+        ename: 'ominous'
+      },
+      {
+        id: 10,
+        sname: 'अनिष्टसूचक',
+        ename: 'ominous'
+      },
+      {
+        id: 11,
+        sname: 'अनिष्टहेतु',
+        ename: 'omen'
+      },
+      {
+        id: 12,
+        sname: 'अनुपादान',
+        ename: 'omission'
+      },
+      {
+        id: 13,
+        sname: 'अन्तःपुरवृद्धा',
+        ename: 'omen'
+      },
+      {
+        id: 14,
+        sname: 'अन्तःपुराधिपत्य',
+        ename: 'omen'
+      },
+      {
+        id: 15,
+        sname: 'अन्तःपुरावचर',
+        ename: 'omen'
+      },
+      {
+        id: 16,
+        sname: 'अन्तःपुरीय',
+        ename: 'omen'
+      },
+      {
+        id: 17,
+        sname: 'अन्तःपुरेवास',
+        ename: 'omen'
+      },
+      {
+        id: 18,
+        sname: 'अन्तरि',
+        ename: 'omit'
+      },
+      {
+        id: 19,
+        sname: 'अन्तर्गतोपमा',
+        ename: 'omitted'
+      },
+      {
+        id: 20,
+        sname: 'अपकृष्',
+        ename:  'omit'
+      }
+    ];
+   
+    
     var HelloWorld = React.createClass({
       render: function() {
           return (
                   <div>
                     <h1>Sanskrit-Lexicon</h1>
-                    <p>React demo</p>
+                    <p>React demo - Step 4</p>
                     </div>
                   );
       }
     });
 
+    var Word = React.createClass({
+      render: function() {
+        return (
+          <li className="word">
+            <div className="word-id"> {this.props.id} </div>
+            <div><img className="word-image" src="http://simpleicon.com/wp-content/uploads/pencil.png" width="30px" height="30px"/></div>
+            <div className="word-info">
+              <div className="word-sname"> {this.props.sname} </div>
+              <div className="word-ename"> ({this.props.ename})</div>
+            </div>
+          </li>
+        )
+      }
+    });
+
+    var WordsList = React.createClass({
+      getInitialState: function() {
+        return {
+          displayedWords: WORDS
+        };
+      },
+      handleSearch: function(event) {
+      
+      fetch('http://localhost:8080/getvariants?word='+event.target.value,{method: 'get', credentials: 'same-origin'})  //, mode: 'no-cors'
+  .then(  
+    function(response) {  
+
+      if (response.status !== 200) {  
+        console.log('Looks like there was a problem. Status Code: ' +  
+          response.status);  
+        return;  
+      }
+
+      // Examine the text in the response  
+      response.json().then(function(data) {  
+        console.log(data);  
+      });  
+    }  
+  )  
+  .catch(function(err) {  
+    console.log('Fetch Error :-S', err);  
+  });
+  
+      //************************************
+      /*
+      fetch('http://localhost:8080/getvariants?word='+event.target.value,{method: 'get', mode: 'no-cors'}).then(function(response) {
+            return response.json();
+        })
+        .then ( function(json) {
+                                    return json.list;
+                                }
+        )
+        .then(function(list) {
+                list.forEach(function(entry) {
+                    console.log(entry.id);
+                    console.log(entry.sname);
+                    console.log(entry.ename);
+        });
+                                } 
+                );
+                */
+      //**************************************
+      var searchQuery =event.target.value.toLowerCase();
+        var displayedWords = WORDS.filter(function(el) {
+          var searchValue = el.ename.toLowerCase();
+          return searchValue.indexOf(searchQuery) !== -1;
+        });
+
+        this.setState({
+            displayedWords : displayedWords
+        });
+
+      },
+      render: function() {
+        return (
+          <div className="words">
+            <input type="text" className="search-field" onChange={this.handleSearch} />
+            <ul className="words-list">
+              {
+                this.state.displayedWords.map(function(el) {
+                  return <Word key={el.id} id={el.id} sname={el.sname} ename={el.ename} />;
+                })
+              }
+            </ul>
+          </div>
+        )
+      }
+    });
+
+    var App = React.createClass({
+        render: function() {
+          return (
+            <div>
+                    <HelloWorld />
+                    <WordsList />
+            </div>
+          )
+        }
+    });
+
     ReactDOM.render(
-      <HelloWorld />,
+      <App />,
       document.getElementById('content')
     );
 

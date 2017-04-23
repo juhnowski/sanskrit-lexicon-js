@@ -1,3 +1,10 @@
+News
+====
+Content of repository should be putted in nginx(I use 1.12.0) /html folder and start nginx (in Windows run nginx.exe).
+Nginx should be downloaded from:  https://nginx.org/
+File index.html fetched data from backend: https://github.com/juhnowski/sanskta_backend
+Backend should be run as: java -jar <repositoriy folder>\target\gs-rest-service-0.1.0.jar
+
 Foreword
 ========
 As start point I got working app by link: http://www.sanskrit-lexicon.uni-koeln.de/scans/MWScan/2014/web/webtc2/

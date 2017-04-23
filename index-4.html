@@ -12,7 +12,26 @@
     <div id='content'></div>
 
     <script type="text/babel">
+    
+    var payload = {
+    a: 1,
+    b: 2
+};
 
+var WORDS;
+
+var WORDS = fetch('http://localhost:8080/getvariants?word=siva', {
+  method: 'post',
+  headers: {
+    'Accept': 'application/json, text/plain, */*',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({a: 7, str: 'Some string: &=&'})
+}).then(res=>res.json())
+  .then(res => console.log(res));
+  
+        
+/*
     var WORDS = [
       {
         id: 1,
@@ -115,6 +134,8 @@
         ename:  'omit'
       }
     ];
+*/    
+    
     var HelloWorld = React.createClass({
       render: function() {
           return (
