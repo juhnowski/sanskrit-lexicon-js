@@ -151,53 +151,46 @@
       },
       handleSearch: function(event) {
       
-      fetch('http://localhost:8080/getvariants?word='+event.target.value,{method: 'get', credentials: 'same-origin'})  //, mode: 'no-cors'
-  .then(  
-    function(response) {  
+      fetch('http://localhost:8080/getvariants?word='+event.target.value,{method: 'get', credentials: 'same-origin'}) 
+      .then(  
+          function(response) {  
 
-      if (response.status !== 200) {  
-        console.log('Looks like there was a problem. Status Code: ' +  
-          response.status);  
-        return;  
-      }
+            if (response.status !== 200) {  
+              console.log('Looks like there was a problem. Status Code: ' +  
+              response.status);  
+            return;  
+          }
 
-      // Examine the text in the response  
-      response.json().then(function(data) {  
-        console.log(data);  
-      });  
-    }  
-  )  
-  .catch(function(err) {  
-    console.log('Fetch Error :-S', err);  
-  });
-  
-      //************************************
-      /*
-      fetch('http://localhost:8080/getvariants?word='+event.target.value,{method: 'get', mode: 'no-cors'}).then(function(response) {
-            return response.json();
-        })
-        .then ( function(json) {
-                                    return json.list;
-                                }
-        )
-        .then(function(list) {
-                list.forEach(function(entry) {
-                    console.log(entry.id);
-                    console.log(entry.sname);
-                    console.log(entry.ename);
-        });
-                                } 
-                );
-                */
-      //**************************************
-      var searchQuery =event.target.value.toLowerCase();
+          //WORDS = [];
+
+          for (var i = WORDS.length; i > 0; i--) {
+            WORDS.pop();
+          }
+
+          response.json().then(function(data) {  
+            //console.log(data);
+            var list = data.list;
+            //console.log(list);
+            list.forEach(function(entry) {
+              var pushed = WORDS.push(entry);
+              console.log("pushed="+pushed+" id=" + entry.id + " ename=" + entry.ename + " sname=" + entry.sname);
+            });
+            
+          });  
+      })  
+      .catch(function(err) {  
+        console.log('Fetch Error :-S', err);  
+      });
+
+
         var displayedWords = WORDS.filter(function(el) {
-          var searchValue = el.ename.toLowerCase();
-          return searchValue.indexOf(searchQuery) !== -1;
+          return true;
         });
+
+        console.log("displayedWords="+displayedWords);
 
         this.setState({
-            displayedWords : displayedWords
+            displayedWords :displayedWords
         });
 
       },
@@ -207,6 +200,7 @@
             <input type="text" className="search-field" onChange={this.handleSearch} />
             <ul className="words-list">
               {
+
                 this.state.displayedWords.map(function(el) {
                   return <Word key={el.id} id={el.id} sname={el.sname} ename={el.ename} />;
                 })
