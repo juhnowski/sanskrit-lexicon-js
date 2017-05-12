@@ -1,3 +1,14 @@
+Updated: 13-05-2017
+Add fetching.html - yet another iteration of search UI component
+It will be work correct from http://www.sanskrit-lexicon.uni-koeln.de site.
+For correct work in local browser it's needed to install Google chrome plugin:
+https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related?hl=en-US
+
+Previously we talk about getting data from server in JSON format, but I stay on parsing incoming html, becouse:
+1) to keep the backward compatibility
+2) not to spend time and forces on changes in a backend and then support two version of server responses: html and json
+
+
 Foreword
 ========
 As start point I got working app by link: http://www.sanskrit-lexicon.uni-koeln.de/scans/MWScan/2014/web/webtc2/

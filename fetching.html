@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Test fetching</title>
+    <script type = "text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  </head>
+  <body>
+    <script>
+    'use strict';
+
+
+/**
+  Vocabulary article is parsed and stored to following class
+
+  By following URL:
+  http://www.sanskrit-lexicon.uni-koeln.de/scans/WILScan/2014/web/webtc/getword.php?key=om&filter=roman&noLit=off&transLit=slp1
+  we got response:
+  
+  <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+  <!--filter=roman<br>,filterin=slp1-->
+  <h1>&nbsp;om</h1>
+  <table class='display'>
+  <tr><td class='display' valign="top"><span class='lnum'> [L=8352]</span><span class='hrefdata'> [p= <a href='../webtc/servepdf.php?page=175' target='_Blank'>175</a>]</span></td>
+  <td class='display' valign="top">.<span class='sdata'>om</span>¦ <i>ind.</i><br/>1 The mystic name of the deity, prefacing all the prayers and most of the writings of the <i>Hindus.</i><br/>E. <span class='sdata'>a</span> a name of VISHN'U, <span class='sdata'>u</span> SIVA, and <span class='sdata'>ma</span> of BRAHMA; it therefore implies the <i>Indian triad,</i> and expresses <i>the three in one.</i><br/>2 A particle of command or injunction,<br/>3 Of assent, (verily, amen.)<br/>4 Of auspiciousness.<br/>5 Of removal, (away, hence,) and,<br/>6 It is an inceptive particle.<br/>E. <span class='sdata'>ava</span> to go, to preserve, &c. <span class='sdata'>man</span> Un'ádi affix, the radical being converted into <span class='sdata'>o.</span></td></tr>
+  </table>
+
+*/
+class Word {
+  constructor(html) {
+    this.html = html;
+    console.log("Got data: " + html);
+  }
+
+}
+
+/**
+ Data model class
+*/
+    class DataModel {
+      constructor(initialData) {
+        this.url = initialData.url;
+        this.key = initialData.key;
+        this.filter = initialData.filter;
+        this.noLit = initialData.noLit;
+        this.transLit = initialData.transLit;
+        this.isGetDataProcessing = false;
+        this.cleanWordslist();
+      }
+
+      setKey(key) {
+        //key may be changed as quick as user print. That's why we need check that
+        // latest call fo getData function has been done.
+        if (this.isGetDataProcessing) {
+          return;
+        }
+
+        //we didn't find empty word, but it's needed to clean wordslist
+        if (key==="") {
+          cleanWordslist();
+          return;
+        }
+        this.key = key;
+        alert("New key: "+this.key)
+        this.getData();
+      }
+
+      cleanWordslist() {
+        this.wordslist = [];
+      }
+
+      getData() {
+        this.isGetDataProcessing = true;
+        var dataurl = this.url + "?key="+this.key+"&filter="+this.filter+"&noLit="+this.noLit+"&transLit=" + this.transLit;
+          $.ajax({
+            url: dataurl,
+            cache: false,
+            method: "GET",
+          })
+            .done(function( html ) {
+             // $( "#stage" ).append( html );
+
+            this.isGetDataProcessing = false;
+            let w = new Word(html);
+            //this.wordslist.push(new Word(html));
+            //return html;
+            });
+      }
+    }
+
+    /**
+    Test data
+    */
+        var test ={}
+        test.url = "http://www.sanskrit-lexicon.uni-koeln.de/scans/WILScan/2014/web/webtc/getword.php";
+        test.key = "om";
+        test.filter = "roman";
+        test.noLit = "off";
+        test.transLit="slp1";
+
+    let dm = new DataModel(test);
+    dm.setKey("om");
+
+    </script>
+  </body>
+</html>

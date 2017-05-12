@@ -1,0 +1,26 @@
+<html>
+<body>
+  <script>
+  var html = '<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8"> \
+  <!--filter=roman<br>,filterin=slp1--> \
+  <h1>&nbsp;om</h1> \
+  <table class=\'display\'> \
+  <tr><td class=\'display\' valign="top"><span class=\'lnum\'> [L=8352]</span><span class=\'hrefdata\'> [p= <a href=\'../webtc/servepdf.php?page=175\' target=\'_Blank\'>175</a>]</span></td> \
+  <td class=\'display\' valign="top">.<span class=\'sdata\'>om</span>¦ <i>ind.</i><br/>1 The mystic name of the deity, prefacing all the prayers and most of the writings of the <i>Hindus.</i><br/>E. <span class=\'sdata\'>a</span> a name of VISHN\'U, <span class=\'sdata\'>u</span> SIVA, and <span class=\'sdata\'>ma</span> of BRAHMA; it therefore implies the <i>Indian triad,</i> and expresses <i>the three in one.</i><br/>2 A particle of command or injunction,<br/>3 Of assent, (verily, \ amen.)<br/>4 Of \ auspiciousness.<br/>5 Of removal, (away, hence,) and,<br/>6 It is an inceptive particle.<br/>E. <span class=\'sdata\'>ava</span> to go, to preserve, &c. <span class=\'sdata\'>man</span> Un\'ádi affix, the radical being converted into <span class=\'sdata\'>o.</span></td></tr> \
+  </table>'
+
+  document.write(html);
+
+/**
+following parsing based on: https://developer.mozilla.org/ru/docs/Web/API/Range/createContextualFragment
+*/
+  var range = document.createRange();
+  range.selectNode(document.body); // required in Safari
+  var fragment = range.createContextualFragment(html);
+  var firstNode = fragment.firstChild;
+
+  document.write("firstNode" + firstNode);
+
+  </script>
+</body>
+</html
